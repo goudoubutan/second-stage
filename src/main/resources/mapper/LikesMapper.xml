@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csqf.zx.mapper.LikesMapper">
+
+    <resultMap type="com.csqf.zx.entity.LikesEntity" id="LikesMap">
+        <result property="lid" column="lid" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+        <result property="mid" column="mid" jdbcType="INTEGER"/>
+        <result property="color" column="color" jdbcType="INTEGER"/>
+        <result property="size" column="size" jdbcType="INTEGER"/>
+        <result property="psrc" column="psrc" jdbcType="VARCHAR"/>
+
+        <association property="productEntity" javaType="com.csqf.zx.entity.ProductEntity">
+            <id property="pid" column="pid" jdbcType="INTEGER"/>
+
+            <result property="mid" column="mid" jdbcType="INTEGER"/>
+            <result property="pname" column="pname" jdbcType="VARCHAR"/>
+            <result property="pprice" column="pprice" jdbcType="NUMERIC"/>
+            <result property="pinfo" column="pinfo" jdbcType="VARCHAR"/>
+            <result property="pstatus" column="pstatus" jdbcType="VARCHAR"/>
+            <result property="psrc" column="psrc" jdbcType="VARCHAR"/>
+            <result property="pstar" column="pstar" jdbcType="VARCHAR"/>
+            <result property="oprice" column="oprice" jdbcType="NUMERIC"/>
+        </association>
+    </resultMap>
+
+    <!--统计收藏数-->
+    <select id="selectLikes" resultType="java.lang.Integer">
+        select count(1)
+        from likes
+    </select>
+
+    <!--新增所有列-->
+    <insert id="likes">
+        insert into likes(pid, price, mid, color, size, psrc)
+        select p.pid, p.pprice, p.mid, d.color, d.size, p.psrc from
+            product p left join
+            detail d on p.pid = d.pid where p.pid = #{pid}
+    </insert>
+
+    <select id="allLikes" resultMap="LikesMap">
+        select pid, psrc,pname,pprice from product where pid in (select pid from likes)
+    </select>
+
+    <!--通过主键删除-->
+    <delete id="delLike">
+        delete from likes where pid = #{pid}
+    </delete>
+
+</mapper>
+

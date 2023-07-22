@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csqf.zx.mapper.OrderMapper">
+
+    <resultMap type="com.csqf.zx.entity.OrdersEntity" id="OrdersMap">
+        <result property="oid" column="oid" jdbcType="VARCHAR"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="omoney" column="omoney" jdbcType="NUMERIC"/>
+        <result property="ostatus" column="ostatus" jdbcType="INTEGER"/>
+        <result property="createdtime" column="createdtime" jdbcType="TIMESTAMP"/>
+        <result property="canceltime" column="canceltime" jdbcType="TIMESTAMP"/>
+
+<!--        <association property="orderDetailEntity" javaType="com.csqf.zx.entity.OrderDetailEntity">-->
+<!--            <id property="odid" column="odid"></id>-->
+
+<!--            <result property="oid" column="oid" jdbcType="VARCHAR"/>-->
+<!--            <result property="odname" column="odname" jdbcType="VARCHAR"/>-->
+<!--            <result property="odmoney" column="odmoney" jdbcType="NUMERIC"/>-->
+<!--            <result property="odnum" column="odnum" jdbcType="INTEGER"/>-->
+<!--        </association>-->
+    </resultMap>
+
+    <select id="getOrders" resultMap="OrdersMap">
+        select  oid, omoney, ostatus,createdtime,canceltime
+        from orders
+    </select>
+
+    <select id="findUnpay" resultMap="OrdersMap">
+        select oid, createdtime, canceltime
+        from orders
+        where ostatus = 0
+    </select>
+
+    <select id="getOrder" resultMap="OrdersMap">
+        select  oid, omoney, ostatus,createdtime
+        from orders
+        where oid = #{oid}
+    </select>
+
+    <select id="checkCancelOrder" resultMap="OrdersMap">
+        select  oid,createdtime,canceltime
+        from orders
+        where ostatus = 0
+    </select>
+
+    <!--新增所有列-->
+    <insert id="generateOrder" >
+        insert into orders(oid, id, omoney, ostatus,createdtime,canceltime)
+        values (#{oid}, 1, #{omoney}, 0,#{createdtime},#{canceltime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updStatus">
+        update orders
+            set ostatus = 1
+        where oid = #{oid}
+    </update>
+
+    <update id="saveOrderStatus">
+        update orders
+            set ostatus = 2
+        where oid = #{oid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="delOrder">
+        delete from orders where oid = #{oid}
+    </delete>
+
+</mapper>
+

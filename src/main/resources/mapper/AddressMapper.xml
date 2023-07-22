@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csqf.zx.mapper.AddressMapper">
+
+    <select id="province" resultType="com.csqf.zx.entity.AddressEntity">
+        select provinceid,province provinceName from provinces
+    </select>
+
+    <select id="city" resultType="com.csqf.zx.entity.AddressEntity">
+        select cityid,city cityName from cities where provinceid=#{provinceid}
+    </select>
+
+    <select id="area" resultType="com.csqf.zx.entity.AddressEntity">
+        select areaid,area areaName from areas where cityid=#{cityid}
+    </select>
+
+</mapper>
