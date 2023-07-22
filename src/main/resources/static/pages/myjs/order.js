@@ -31,16 +31,34 @@ function pay(oid){
 }
 
 function checkBtn(status,oid) {
-    if (status == 1 || status == 2) {
+    if (status == 1 ) {
         return '<td ><button class="btn btn-primary"  disabled>已支付</button> <button class="btn btn-danger" onclick="delOrder(\''+oid+'\')">删除订单</button></td>';
-    }else {
-        return '<td ><button class="btn btn-primary"  onclick="pay(\''+oid+'\')">立即支付</button> <button class="btn btn-danger" onclick="delOrder(\''+oid+'\')">取消订单</button></td>';
+    }else if(status == 2){
+        return '<td ><button class="btn btn-primary"  disabled>已取消</button> <button class="btn btn-danger" onclick="delOrder(\''+oid+'\')">删除订单</button></td>';
+    }else if (status == 0){
+        return '<td ><button class="btn btn-primary"  onclick="pay(\''+oid+'\')">立即支付</button> <button class="btn btn-danger" onclick="cancelOrder(\''+oid+'\')">取消订单</button></td>';
     }
 }
 function delOrder(oid){
     // console.log(oid);
     $.ajax({
         url: "/delOrder",
+        method: "post",
+        data: {
+            oid: oid
+        },
+        success: function (res){
+            if (res.code == 200){
+                // alert("取消成功");
+                window.location.reload();
+            }
+        }
+    })
+}
+
+function cancelOrder(oid){
+    $.ajax({
+        url: "/cancelOrder",
         method: "post",
         data: {
             oid: oid

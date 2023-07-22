@@ -71,6 +71,48 @@ function getProducts(){
     })
 }
 
+function getShopCenter(){
+    $.ajax({
+        url: "/product",
+        method: "get",
+        success: function (res){
+            if (res.code == 200){
+                var content = "";
+                for (i = 0; i < res.data.length; i++){
+                    content += "<div class='col-lg-4 col-md-6 col-sm-6 pb-1'>";
+                    content += "<div class='product-item bg-light mb-4'>";
+                    content += "<div class='product-img position-relative overflow-hidden'>";
+                    content += "<img class='img-fluid w-100' src=' "+ res.data[i].psrc + "' alt=''>";
+                    content += "<div class='product-action'>";
+                    content += "<a class='btn btn-outline-dark btn-square' href='/pages/detail.html?pid="+res.data[i].pid+"'><i class='fa fa-shopping-cart'></i></a>"; //前往物品详情页
+                    content += "<a class='btn btn-outline-dark btn-square' onclick='likes("+res.data[i].pid+")'><i class='far fa-heart'></i></a>"; //收藏
+                    content += "<a class='btn btn-outline-dark btn-square' href=''><i class='fa fa-sync-alt'></i></a>"; //刷新
+                    content += "<a class='btn btn-outline-dark btn-square' href=''><i class='fa fa-search'></i></a>"; // 搜索
+                    content += "</div>";
+                    content += "</div>";
+                    content += "<div class='text-center py-4'>";
+                    content += "<a class='h6 text-decoration-none text-truncate' href=''>"+ res.data[i].pname +"</a>";
+                    content += "<div class='d-flex align-items-center justify-content-center mt-2'>";
+                    content += "<h5>$"+ res.data[i].pprice +"</h5><h6 class='text-muted ml-2'><del>$"+ res.data[i].oprice +"</del></h6>";
+                    content += "</div>";
+                    content += "<div class='d-flex align-items-center justify-content-center mb-1'>";
+                    content += "<small class='fa fa-star text-primary mr-1'></small>";
+                    content += "<small class='fa fa-star text-primary mr-1'></small>";
+                    content += "<small class='fa fa-star text-primary mr-1'></small>";
+                    content += "<small class='fa fa-star text-primary mr-1'></small>";
+                    content += "<small class='fa fa-star text-primary mr-1'></small>";
+                    content += "<small>"+res.data[i].pstar+"</small>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "</div>";
+                    content += "</div>";
+                }
+                $("#shopCenter").html(content);
+            }
+        }
+    })
+}
+
 function getLoginUser (){
     $.ajax({
         url: "/getLoginUser",

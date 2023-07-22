@@ -30,7 +30,12 @@
     <script src="myjs/likes.js"></script>
     <script src="myjs/order.js"></script>
 </head>
-
+<style>
+    .table-container {
+        max-height: 1570px; /* 设置容器的最大高度，超过该高度将出现滚动条 */
+        overflow-y: scroll; /* 添加纵向滚动条 */
+    }
+</style>
 <body>
 <!-- Topbar Start -->
 <div class="container-fluid">
@@ -165,7 +170,7 @@
                         <a href="index.html" class="nav-item nav-link active">主页</a>
                         <a href="shop.html" class="nav-item nav-link">更多</a>
                         <a href="cart.html" class="nav-item nav-link">购物车</a>
-                        <a href="checkout.html" class="nav-item nav-link">我的订单</a>
+                        <a href="order.html" class="nav-item nav-link">我的订单</a>
                         <a href="contact.html" class="nav-item nav-link">联系我们</a>
                     </div>
                 </div>
@@ -199,7 +204,7 @@
 </div>
 <!-- Breadcrumb End -->
 
-<table class="table table-light table-borderless table-hover text-center mb-lg-1">
+<table class="table table-light table-borderless table-hover  "style="text-align: center">
     <thead class="thead-dark">
     <tr>
         <th>订单编号</th>
@@ -213,7 +218,6 @@
     <tbody class="align-middle" id="ordertbody">
     </tbody>
 </table>
-
 
 <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 

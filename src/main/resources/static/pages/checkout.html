@@ -423,26 +423,26 @@
             //         body: "订单支付"
             //     }
             // })
+            // checkPay();
             window.open("/alipay/pay?oid="+getURLParameter('oid')+"&omoney="+$("#omoney").html().replace("$","")+"&body=订单支付");
         }
 
         // checkPaySuccess();
-
-        function checkPay(){
-            $.get(
-                "/paySuccess",
-                function(res){
-                    if(res.code == 200){
-                        window.location.href ="/pages/order.html";
-                    }else{
-                        setTimeout(function(){
-                            checkPay();
-                        },1000)
-                    }
-                }
-            )
-        }
-        checkPay();
+        //
+        // function checkPay(){
+        //     $.get(
+        //         "/paySuccess",
+        //         function(res){
+        //             if(res.code == 200){
+        //                 window.location.href ="/pages/order.html";
+        //             }else{
+        //                 setTimeout(function(){
+        //                     checkPay();
+        //                 },1000)
+        //             }
+        //         }
+        //     )
+        // }
     </script>
 
     <!-- Footer Start -->

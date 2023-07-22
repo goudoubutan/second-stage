@@ -15,7 +15,7 @@ function allLikesProducts(){
                     // content += "</div>";
                     // content += "</td>";
                     // content += "<td class='align-middle'>$"+res.data[i].ctotal+"</td>";
-                    content += "<td class='align-middle'><button class='btn btn-sm btn-danger' onclick='delLike("+res.data[i].pid+")'><i class='fa fa-times'></i></button></td>";
+                    content += "<td class='align-middle'><button class='btn  btn-danger' onclick='delLike("+res.data[i].lid+")'>取消收藏</button></td>";
                     content += "</tr>";
                 }
                 // payTotals = cartsTotal+10;

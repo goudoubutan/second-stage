@@ -40,12 +40,12 @@
     </insert>
 
     <select id="allLikes" resultMap="LikesMap">
-        select pid, psrc,pname,pprice from product where pid in (select pid from likes)
+        select l.lid, p.pid, p.psrc, p.pname,p.pprice from product p LEFT JOIN likes l ON p.pid =l.pid WHERE  p.pid in (select pid from likes)
     </select>
 
     <!--通过主键删除-->
     <delete id="delLike">
-        delete from likes where pid = #{pid}
+        delete from likes where lid = #{lid}
     </delete>
 
 </mapper>

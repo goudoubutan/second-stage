@@ -93,6 +93,13 @@ public class OrderController {
             return result;
     }
 
+    @RequestMapping("/cancelOrder")
+    public ResponseResult cancel(String oid){
+        ResponseResult result =ResponseResult.SUCCESS();
+        orderService.saveOrderStatus(oid);
+        return result;
+    }
+
     @RequestMapping("/getOrder")
     public ResponseResult getOrder(@RequestParam("oid") String oid){
         ResponseResult result =ResponseResult.SUCCESS();
@@ -104,10 +111,15 @@ public class OrderController {
     @GetMapping("/paySuccess")
     public ResponseResult paySuccess(HttpServletRequest request){
 
+        String tradeStatus = request.getParameter("trade_status");
         String oid = request.getParameter("out_trade_no");
-
-        ResponseResult result =ResponseResult.SUCCESS();
-        orderService.updStatus(oid);
+        ResponseResult result;
+        if (tradeStatus.equals("TRADE_SUCCESS")){
+            result = ResponseResult.SUCCESS();
+            orderService.updStatus(oid);
+        }else {
+            result = ResponseResult.FAIL();
+        }
         return result;
     }
 
