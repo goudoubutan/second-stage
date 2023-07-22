@@ -20,7 +20,7 @@ public class SmsUtils {
     //发送手机短信
     public static boolean sendMsg(String phone, String code) throws Exception {
 
-        com.aliyun.dysmsapi20170525.Client client = createClient("LTAI5t8nZLx1z2zZw3TgByM5", "PgdKdOR2WmEdaDAmbKpJ4tlrHW0T6l");
+        com.aliyun.dysmsapi20170525.Client client = createClient("", "");
         SendSmsRequest sendSmsRequest = new SendSmsRequest();
 
         sendSmsRequest.setPhoneNumbers(phone);
